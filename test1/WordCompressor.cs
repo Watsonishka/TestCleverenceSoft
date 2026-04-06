@@ -15,7 +15,7 @@ namespace Test1ConsoleApp
             var previousSymbol = input[0];
             var currentSymbol = ' ';
             var repeatSymbolCount = 1;
-            var compressionWords = new List<(char symbol, int count)>();
+            var compresedChars = new List<(char symbol, int count)>();
 
             for (var i = 1; i < input.Length; i++)
             {
@@ -27,72 +27,40 @@ namespace Test1ConsoleApp
                 }
                 else
                 {
-                    compressionWords.Add((previousSymbol, repeatSymbolCount));
+                    compresedChars.Add((previousSymbol, repeatSymbolCount));
                     repeatSymbolCount = 1;
                     previousSymbol = currentSymbol;
                 }
             }
 
-            compressionWords.Add((previousSymbol, repeatSymbolCount));
-            return compressionWords;
+            compresedChars.Add((previousSymbol, repeatSymbolCount));
+            return compresedChars;
         }
 
-        public static string Decompress(string input)
+        public static string Decompress(List<(char symbol, int count)> compressedChars)
         {
-            if (string.IsNullOrEmpty(input))
+            if (compressedChars == null || compressedChars.Count == 0)
             {
                 return "";
             }
-            if (input.Length == 1)
-            {
-                return input;
-            }
 
-            var currentSymbol = input[0];
-            var decompressionWord = new StringBuilder();
-            var countSymbols = "";
-            var isNumberStart = false;
+            var decompressedWord = new StringBuilder();
 
-            for (var i = 1; i < input.Length; i++)
+            foreach (var compressedChar in compressedChars)
             {
-                if (char.IsDigit(input[i]))
+                if (compressedChar.count == 1)
                 {
-                    isNumberStart = true;
-                    countSymbols += input[i].ToString();
-                }
-                else if (!char.IsDigit(input[i]) && isNumberStart)
-                {
-                    var count = int.Parse(countSymbols);
-                    for (var j = 1; j <= count; j++)
-                    {
-                        decompressionWord.Append(currentSymbol);
-                    }
-                    countSymbols = "";
-                    isNumberStart = false;
-                    currentSymbol = input[i];
+                    decompressedWord.Append(compressedChar.symbol);
                 }
                 else
                 {
-                    decompressionWord.Append(currentSymbol);
-                    currentSymbol = input[i];
-                }
-                if (i == input.Length - 1)
-                {
-                    if (char.IsDigit(input[i]))
+                    for (var i = 0; i < compressedChar.count; i++)
                     {
-                        var count = int.Parse(countSymbols);
-                        for (var j = 1; j <= count; j++)
-                        {
-                            decompressionWord.Append(currentSymbol);
-                        }
-                    }
-                    else
-                    {
-                        decompressionWord.Append(currentSymbol);
+                        decompressedWord.Append(compressedChar.symbol);
                     }
                 }
             }
-            return decompressionWord.ToString();
+            return decompressedWord.ToString();
         }
     }
 }
