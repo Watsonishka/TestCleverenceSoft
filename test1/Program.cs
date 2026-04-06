@@ -6,11 +6,13 @@ public class Program
 {
     static void Main(string[] args)
     {
-        var input = "aaagggr";
+        var input = "faaaaaaaaaaaagggrrrrrrrrrrr";
         var compressionWord = CompressWord(input);
         Console.WriteLine(compressionWord);
+        var decompressionWord = DecompressWord(compressionWord);
+        Console.WriteLine(decompressionWord);
     }
-    static string CompressWord(string input)
+    public static string CompressWord(string input)
     {
         if (string.IsNullOrEmpty(input))
         {
@@ -54,7 +56,65 @@ public class Program
                 }
             }
         }
-
         return compressionWord.ToString();
     }
+
+    public static string DecompressWord (string input)
+    {
+        if (string.IsNullOrEmpty(input))
+        {
+            return "";
+        }
+        if (input.Length == 1)
+        {
+            return input;
+        }
+
+        var currentSymbol = input[0];
+        var decompressionWord = new StringBuilder();
+        var countSymbols = "";
+        var isNumberStart = false;
+
+        for (var i = 1; i < input.Length; i++)
+        {
+            if (char.IsDigit(input[i]))
+            {
+                isNumberStart = true;
+                countSymbols += input[i].ToString();
+            }
+            else if (!char.IsDigit(input[i]) && isNumberStart)
+            {
+                var count = int.Parse(countSymbols);
+                for (var j = 1; j <= count; j++)
+                {
+                    decompressionWord.Append(currentSymbol);
+                }
+                countSymbols = "";
+                isNumberStart = false;
+                currentSymbol = input[i];
+            }
+            else
+            {
+                decompressionWord.Append(currentSymbol);
+                currentSymbol = input[i];
+            }
+            if (i == input.Length - 1)
+            {
+                if (char.IsDigit(input[i]))
+                {
+                    var count = int.Parse(countSymbols);
+                    for (var j = 1; j <= count; j++)
+                    {
+                        decompressionWord.Append(currentSymbol);
+                    }
+                }
+                else
+                {
+                    decompressionWord.Append(currentSymbol);
+                }
+            }
+        }
+        return decompressionWord.ToString();
+    }
+
 }
