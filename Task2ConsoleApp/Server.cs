@@ -3,14 +3,10 @@
     public static class Server
     {
         private static int count;
-        private static readonly ReaderWriterLockSlim _lock = new ReaderWriterLockSlim();
-        public static int Count
+        private static readonly ReaderWriterLockSlim _lock;
+        static Server()
         {
-            get => count;
-            set
-            {
-                count = value;
-            }
+            _lock = new ReaderWriterLockSlim();
         }
         public static int GetCount()
         {
