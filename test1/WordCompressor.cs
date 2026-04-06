@@ -4,81 +4,61 @@ namespace Test1ConsoleApp
 {
     public static class WordCompressor
     {
-        public static List<(char symbol, int count)> Compress(string input)
+        public static string Compress(string userInput)
         {
-
-            if (string.IsNullOrWhiteSpace(input))
+            if (string.IsNullOrEmpty(userInput))
             {
-                return new List<(char symbol, int count)>();
+                return "";
             }
-
-            input = new string(input.Where(c => !char.IsWhiteSpace(c)).ToArray()).ToLower();
-            var previousSymbol = input[0];
-            var currentSymbol = ' ';
+            var compressedWord = new StringBuilder();
             var repeatSymbolCount = 1;
-            var compresedChars = new List<(char symbol, int count)>();
 
-            for (var i = 1; i < input.Length; i++)
+            for (int i = 1; i <= userInput.Length; i++)
             {
-                currentSymbol = input[i];
-
-                if (currentSymbol == previousSymbol)
+                if (i < userInput.Length && userInput[i] == userInput[i - 1])
                 {
                     repeatSymbolCount++;
                 }
                 else
                 {
-                    compresedChars.Add((previousSymbol, repeatSymbolCount));
+                    compressedWord.Append(userInput[i - 1]);
+
+                    if (repeatSymbolCount > 1)
+                    {
+                        compressedWord.Append(repeatSymbolCount);
+                    }
                     repeatSymbolCount = 1;
-                    previousSymbol = currentSymbol;
-                }
-            }
-
-            compresedChars.Add((previousSymbol, repeatSymbolCount));
-            return compresedChars;
-        }
-        public static string ReadCompressedWord(List<(char symbol, int count)> compressedChars)
-        {
-            if (compressedChars == null || compressedChars.Count == 0)
-            {
-                return "";
-            }
-
-            var compressedWord = new StringBuilder();
-
-            foreach (var compressedChar in compressedChars)
-            {
-                compressedWord.Append(compressedChar.symbol);
-                if (compressedChar.count > 1)
-                {
-                    compressedWord.Append(compressedChar.count);
                 }
             }
             return compressedWord.ToString();
         }
-        public static string Decompress(List<(char symbol, int count)> compressedChars)
+        public static string Decompress(string userInput)
         {
-            if (compressedChars == null || compressedChars.Count == 0)
+            if (string.IsNullOrEmpty(userInput))
             {
                 return "";
             }
 
             var decompressedWord = new StringBuilder();
 
-            foreach (var compressedChar in compressedChars)
+            for (int i = 0; i < userInput.Length; i++)
             {
-                if (compressedChar.count == 1)
+                var symbol = userInput[i];
+                var repeatSymbolCount = 0;
+
+                while (i + 1 < userInput.Length && char.IsDigit(userInput[i + 1]))
                 {
-                    decompressedWord.Append(compressedChar.symbol);
+                    i++;
+                    var lastNumber = Convert.ToInt32(Convert.ToString(userInput[i]));
+                    repeatSymbolCount = repeatSymbolCount * 10 + lastNumber;
                 }
-                else
+                if (repeatSymbolCount == 0)
                 {
-                    for (var i = 0; i < compressedChar.count; i++)
-                    {
-                        decompressedWord.Append(compressedChar.symbol);
-                    }
+                    repeatSymbolCount = 1;
                 }
+                decompressedWord.Append(new string(symbol, repeatSymbolCount));
             }
+
             return decompressedWord.ToString();
         }
     }
