@@ -1,0 +1,59 @@
+# Visual Studio
+.vs/
+.vscode/
+
+# Build results
+bin/
+obj/
+[Bb]in/
+[Oo]bj/
+
+# User-specific files
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Backup files
+*.bak
+*.tmp
+*.temp
+
+# Log files
+*.log
+*.txt
+
+# IDE settings
+.idea/
+*.swp
+*~
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+Thumbs.db
+Desktop.ini
+
+# Test results
+TestResults/
+*.trx
+
+# Package references
+packages/
+*.nupkg
+
+# Publish files
+*.pubxml
+*.publishproj
+
+# Code coverage
+*.coverage
+*.coveragexml
+*.coveragexml
+
+# Rider
+.idea/
+*.sln.iml
