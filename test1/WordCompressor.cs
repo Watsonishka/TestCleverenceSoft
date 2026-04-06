@@ -7,12 +7,12 @@ namespace Test1ConsoleApp
         public static List<(char symbol, int count)> Compress(string input)
         {
 
-            if (string.IsNullOrEmpty(input))
+            if (string.IsNullOrWhiteSpace(input))
             {
                 return new List<(char symbol, int count)>();
             }
 
-            input = input.ToLower();
+            input = new string(input.Where(c => !char.IsWhiteSpace(c)).ToArray()).ToLower();
             var previousSymbol = input[0];
             var currentSymbol = ' ';
             var repeatSymbolCount = 1;
