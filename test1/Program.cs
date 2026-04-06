@@ -6,18 +6,25 @@ public class Program
 {
     static void Main(string[] args)
     {
-        var input = "";
+        var input = "aaagggr";
         var compressionWord = CompressWord(input);
         Console.WriteLine(compressionWord);
     }
     static string CompressWord(string input)
     {
-        if (string.IsNullOrEmpty(input)) return "";
+        if (string.IsNullOrEmpty(input))
+        {
+            return "";
+        }
+        if (input.Length == 1)
+        {
+            return input;
+        }
 
         var previousSymbol = input[0];        
         var currentSymbol = ' ';
         var repeatSymbolCount = 1;
-        var compressionWord = new StringBuilder(previousSymbol);
+        var compressionWord = new StringBuilder();
 
         for (var i = 1; i < input.Length; i++)
         {
@@ -27,7 +34,7 @@ public class Program
             {
                 repeatSymbolCount++;
             }
-            if (currentSymbol != previousSymbol || i == input.Length - 1)
+            else
             {
                 compressionWord.Append(previousSymbol);
                 if (repeatSymbolCount > 1)
@@ -37,11 +44,17 @@ public class Program
                 repeatSymbolCount = 1;
                 previousSymbol = currentSymbol;
             }
+            if (i == input.Length - 1)
+            {
+                compressionWord.Append(currentSymbol);
+                if (repeatSymbolCount > 1)
+                {
+                    compressionWord.Append(repeatSymbolCount);
+
+                }
+            }
         }
-        if (input.Length == 1)
-        {
-            compressionWord.Append(input);
-        }
+
         return compressionWord.ToString();
     }
 }
