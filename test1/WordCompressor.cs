@@ -2,9 +2,9 @@
 
 namespace Test1ConsoleApp
 {
-    public class WordCompressor
+    public static class WordCompressor
     {
-        public List<(char symbol, int count)> Compress(string input)
+        public static List<(char symbol, int count)> Compress(string input)
         {
 
             if (string.IsNullOrEmpty(input))
@@ -12,6 +12,7 @@ namespace Test1ConsoleApp
                 return new List<(char symbol, int count)>();
             }
 
+            input = input.ToLower();
             var previousSymbol = input[0];
             var currentSymbol = ' ';
             var repeatSymbolCount = 1;
