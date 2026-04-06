@@ -3,14 +3,11 @@
     public static class Server
     {
         private static int count;
-        private static readonly ReaderWriterLockSlim _lock;
-        static Server()
-        {
-            _lock = new ReaderWriterLockSlim();
-        }
+        private static readonly ReaderWriterLockSlim _lock = new ReaderWriterLockSlim();
         public static int GetCount()
         {
             _lock.EnterReadLock();
+
             try
             {
                 return count;
@@ -23,6 +20,7 @@
         public static void AddToCount(int value)
         {
             _lock.EnterWriteLock();
+
             try
             {
                 count += value;
