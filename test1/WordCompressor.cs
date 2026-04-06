@@ -36,7 +36,25 @@ namespace Test1ConsoleApp
             compresedChars.Add((previousSymbol, repeatSymbolCount));
             return compresedChars;
         }
+        public static string ReadCompressedWord(List<(char symbol, int count)> compressedChars)
+        {
+            if (compressedChars == null || compressedChars.Count == 0)
+            {
+                return "";
+            }
 
+            var compressedWord = new StringBuilder();
+
+            foreach (var compressedChar in compressedChars)
+            {
+                compressedWord.Append(compressedChar.symbol);
+                if (compressedChar.count > 1)
+                {
+                    compressedWord.Append(compressedChar.count);
+                }
+            }
+            return compressedWord.ToString();
+        }
         public static string Decompress(List<(char symbol, int count)> compressedChars)
         {
             if (compressedChars == null || compressedChars.Count == 0)
