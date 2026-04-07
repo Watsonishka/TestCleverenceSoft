@@ -1,6 +1,4 @@
-﻿using System.Text;
-
-namespace Test1ConsoleApp;
+﻿namespace Test1ConsoleApp;
 
 public class Program
 {
@@ -12,7 +10,7 @@ public class Program
             Console.WriteLine("Введи строчку из строчных латинских букв, которую хочешь скомпрессировать!");
             var errorMessage = "";
             input = Console.ReadLine();
-            if (InputValidatior.Check(input, out errorMessage))
+            if (InputValidator.Check(input, out errorMessage))
             {
                 break;
             }
@@ -22,6 +20,6 @@ public class Program
         Console.WriteLine(compressionWord);
         var decompressionWord = WordCompressor.Decompress(compressionWord);
         Console.WriteLine(decompressionWord);
-    }   
+    }
 
 }

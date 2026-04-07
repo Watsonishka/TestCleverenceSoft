@@ -13,7 +13,7 @@ namespace Test1ConsoleApp
             var compressedWord = new StringBuilder();
             var repeatSymbolCount = 1;
 
-            for (int i = 1; i <= userInput.Length; i++)
+            for (var i = 1; i <= userInput.Length; i++)
             {
                 if (i < userInput.Length && userInput[i] == userInput[i - 1])
                 {
@@ -41,7 +41,7 @@ namespace Test1ConsoleApp
 
             var decompressedWord = new StringBuilder();
 
-            for (int i = 0; i < userInput.Length; i++)
+            for (var i = 0; i < userInput.Length; i++)
             {
                 var symbol = userInput[i];
                 var repeatSymbolCount = 0;
