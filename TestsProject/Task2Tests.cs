@@ -7,6 +7,7 @@ namespace TestsProject
         [Fact]
         public void SingleThread_AddToCount_WorksCorrectly()
         {
+            Server.Reset();
             Server.AddToCount(5);
             Server.AddToCount(3);
             Assert.Equal(8, Server.GetCount());
@@ -14,6 +15,7 @@ namespace TestsProject
         [Fact]
         public void MultipleThreads_AddToCount_NoDataRace()
         {
+            Server.Reset();
             var threadsCount = 100;
             var incrementsPerThread = 1000;
             var tasks = new Task[threadsCount];
@@ -35,6 +37,7 @@ namespace TestsProject
         [Fact]
         public void MultipleReaders_CanReadSimultaneously()
         {
+            Server.Reset();
             var startTime = DateTime.Now;
             var tasks = new Task[10];
 
