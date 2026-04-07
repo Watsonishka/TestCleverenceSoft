@@ -4,6 +4,10 @@
     {
         private static int count;
         private static readonly ReaderWriterLockSlim _lock = new ReaderWriterLockSlim();
+        static Server()
+        {
+            count = 0;
+        }
         public static int GetCount()
         {
             _lock.EnterReadLock();

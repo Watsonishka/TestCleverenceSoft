@@ -1,4 +1,5 @@
 ﻿using Test1ConsoleApp;
+using Xunit;
 
 namespace TestsProject
 {
