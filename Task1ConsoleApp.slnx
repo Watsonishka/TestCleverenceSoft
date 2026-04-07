@@ -2,6 +2,7 @@
   <Project Path="Task2ConsoleApp/Task2ConsoleApp.csproj" Id="88e016b1-010a-4bd9-80f2-da0a13adf575">
     <Build Solution="Debug|*" Project="false" />
   </Project>
+  <Project Path="Task3ConsoleApp/Task3ConsoleApp.csproj" Id="79bdbfd5-e233-4b18-a5d4-af82b4829844" />
   <Project Path="test1/Task1ConsoleApp.csproj" />
   <Project Path="TestsProject/TestsProject.csproj" Id="05996208-0edb-4fa9-9596-e7b06f2b78c9">
     <Build Solution="Debug|*" Project="false" />
