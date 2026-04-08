@@ -4,7 +4,7 @@
     {
         private DateOnly date;
         private TimeOnly time;
-        private string level;
+        private Level level;
         private string message;
         private string callingMethod;
     }
