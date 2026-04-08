@@ -1,6 +1,4 @@
 ﻿using System.Globalization;
-using static System.Runtime.InteropServices.JavaScript.JSType;
-using static Task3ConsoleApp.Level;
 
 namespace Task3ConsoleApp
 {
@@ -11,13 +9,13 @@ namespace Task3ConsoleApp
         {
             var parts = Divide(inputFile);
 
-            var date = DateOnly.ParseExact(parts[0], "DD-MM-YYYY");
-            var time = TimeOnly.Parse(parts[1]);
-            var level = GetLog(parts[2]); 
+            var date = DateOnly.ParseExact(parts[0].Trim(), "dd.MM.yyyy", CultureInfo.InvariantCulture);
+            var time = TimeOnly.Parse(parts[1].Trim());
+            var level = Level.GetLog(parts[2].Trim());
             var callingMethod = "DEFAULT";
             var message = "";
 
-            for ( var i = 3; i < parts.Length; i++)
+            for (var i = 3; i < parts.Length; i++)
             {
                 if (isContainsOnlyNumbers(parts[i]))
                 {
@@ -32,7 +30,7 @@ namespace Task3ConsoleApp
                     message = parts[i].Trim();
                 }
             }
-            return new Log(date,time,level,message,callingMethod);
+            return new Log(date, time, level, message, callingMethod);
         }
         private static string[] Divide(string inputDate)
         {
@@ -40,22 +38,9 @@ namespace Task3ConsoleApp
             if (inputDate.Contains("|"))
             {
                 return inputDate.Split('|');
-                
+
             }
             return inputDate.Split(' ');
-        }
-        private static LogLevel GetLog(string logLevel)
-        {
-            switch (logLevel.Trim().ToUpper())
-            {
-                case "INFO": return LogLevel.INFO;
-                case "INFORMATION": return LogLevel.INFORMATION;
-                case "WARN": return LogLevel.WARN;
-                case "WARNING": return LogLevel.WARNING;
-                case "ERROR": return LogLevel.ERROR;
-                case "DEBUG": return LogLevel.DEBUG;
-                default: return LogLevel.UNKNOWN;
-            }
         }
         private static bool isContainsOnlyNumbers(string inputString)
         {
