@@ -24,22 +24,17 @@
         public static void AddToCount(int value)
         {
             _lock.EnterWriteLock();
-
             try
             {
+                if (value > 0 && count > int.MaxValue - value)
+                {
+                    throw new ArgumentOutOfRangeException($"Прибавление {value} вызовет переполнение значения! Максимум - {int.MaxValue}!");
+                }
+                if (value < 0 && count < int.MinValue - value)
+                {
+                    throw new ArgumentOutOfRangeException($"Прибавление {value} вызовет переполнение значения! Минимум -  {int.MinValue}!");
+                }
                 count += value;
-            }
-            finally
-            {
-                _lock.ExitWriteLock();
-            }
-        }
-        public static void Reset()
-        {
-            _lock.EnterWriteLock();
-            try
-            {
-                count = 0;
             }
             finally
             {
