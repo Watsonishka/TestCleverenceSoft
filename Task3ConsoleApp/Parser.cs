@@ -1,39 +1,23 @@
 ﻿using System.Globalization;
+using static Task3ConsoleApp.Level;
 
 namespace Task3ConsoleApp
 {
     public static class Parser
     {
-        public static Log? ParseLog(string inputFile, out string errorMessage)
+        public static Log? TryParseLog(string inputFile, out string errorMessage)
         {
             errorMessage = "";
             try
             {
-                var parts = Divide(inputFile);
-
-                var date = ParseDate(parts[0].Trim());
-                var time = TimeOnly.Parse(parts[1].Trim());
-                var level = Level.GetLog(parts[2].Trim());
-                var callingMethod = "DEFAULT";
-                var message = "";
-
-                for (var i = 3; i < parts.Length; i++)
+                if (inputFile.Contains('|'))
                 {
-                    if (IsContainsOnlyNumbers(parts[i]))
-                    {
-                        continue;
-                    }
-
-                    if (IsContainsRussianLetters(parts[i]))
-                    {
-                        message = parts[i].Trim();
-                    }
-                    else
-                    {
-                        callingMethod = parts[i].Trim();
-                    }
+                    return ParseFormat2(inputFile);
                 }
-                return new Log(date, time, level, message.Trim(), callingMethod);
+                else
+                {
+                    return ParseFormat1(inputFile);
+                }
             }
             catch
             {
@@ -42,24 +26,27 @@ namespace Task3ConsoleApp
             }
             return null;
         }
-        private static string[] Divide(string inputFile)
+        private static Log ParseFormat1(string line)
         {
-            if (inputFile.Contains("|"))
-            {
-                var pipeParts = inputFile.Split('|', StringSplitOptions.RemoveEmptyEntries);
-                var dateTimeParts = pipeParts[0].Trim().Split(' ');
-                return new string[]
-                {
-                    dateTimeParts[0].Trim(),
-                    dateTimeParts[1].Trim(),
-                    pipeParts[1].Trim(),
-                    pipeParts[2].Trim(),
-                    pipeParts[3].Trim(),
-                    pipeParts[4].Trim()
-                };
-            }
-            var parts = inputFile.Split(' ', 4);
-            return parts;
+            var parts = line.Split(' ', 4);            
+            var date = ParseDate(parts[0].Trim());
+            var time = TimeOnly.Parse(parts[1].Trim());
+            var level = Level.GetLog(parts[2].Trim());
+            var callingMethod = "DEFAULT";
+            var message = parts[3].Trim();
+            return new Log(date, time, level, message, callingMethod);
+        }
+        private static Log ParseFormat2(string line)
+        {
+            var parts = line.Split('|', StringSplitOptions.RemoveEmptyEntries);
+            var dateTimeParts = parts[0].Trim().Split(' ');
+
+            var date = ParseDate(dateTimeParts[0].Trim());
+            var time = TimeOnly.Parse(dateTimeParts[1].Trim());
+            var level = Level.GetLog(parts[1].Trim());
+            var callingMethod = parts[3].Trim();
+            var message = parts[4].Trim();
+            return new Log(date, time, level, message, callingMethod);
         }
         private static DateOnly ParseDate(string inputDate)
         {

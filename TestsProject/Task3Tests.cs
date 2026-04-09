@@ -9,7 +9,7 @@ namespace TestsProject
         public void ParseFormat1_ValidLogWithDefaultMethod_ReturnsLog()
         {
             string input = "10.03.2025 15:14:49.523 INFORMATION Версия программы: '3.4.0.48729'";
-            var result = Parser.ParseLog(input, out string errorMessage);
+            var result = Parser.TryParseLog(input, out string errorMessage);
             Assert.NotNull(result);
             Assert.Equal("10-03-2025", result.Date.ToString("dd-MM-yyyy"));
             Assert.Equal("15:14:49.523", result.Time.ToString("HH:mm:ss.fff"));
@@ -23,7 +23,7 @@ namespace TestsProject
         public void ParseFormat1_WarningLevel_ReturnsWarn()
         {
             string input = "10.03.2025 15:14:49.523 WARNING Сообщение";
-            var result = Parser.ParseLog(input, out string errorMessage);
+            var result = Parser.TryParseLog(input, out string errorMessage);
             Assert.NotNull(result);
             Assert.Equal(LogLevel.WARN, result.Level);
         }
@@ -32,7 +32,7 @@ namespace TestsProject
         public void ParseFormat2_ValidLog_ReturnsLog()
         {
             string input = "2025-03-10 15:14:51.5882| INFO|11|MobileComputer.GetDeviceId| Код устройства: '@MINDEO-M40-D-410244015546'";
-            var result = Parser.ParseLog(input, out string errorMessage);
+            var result = Parser.TryParseLog(input, out string errorMessage);
             Assert.NotNull(result);
             Assert.Equal("10-03-2025", result.Date.ToString("dd-MM-yyyy"));
             Assert.Equal("INFO", result.Level.ToString());
@@ -44,7 +44,7 @@ namespace TestsProject
         public void ParseInvalidLog_ReturnsNullAndAddsToProblems()
         {
             string input = "99.99.2025 15:14:49.523 INFORMATION Сообщение";
-            var result = Parser.ParseLog(input, out string errorMessage);
+            var result = Parser.TryParseLog(input, out string errorMessage);
             Assert.Null(result);
             Assert.NotEmpty(errorMessage);
             Assert.Equal("Лог не смог запарситься! Требуется ручная обработка! Проблемный лог записан в \"problems.txt\"!", errorMessage);
@@ -54,7 +54,7 @@ namespace TestsProject
         public void ParseEmptyString_ReturnsNull()
         {
             string input = "";
-            var result = Parser.ParseLog(input, out string errorMessage);
+            var result = Parser.TryParseLog(input, out string errorMessage);
             Assert.Null(result);
             Assert.NotEmpty(errorMessage);
             Assert.Equal("Лог не смог запарситься! Требуется ручная обработка! Проблемный лог записан в \"problems.txt\"!", errorMessage);
@@ -65,7 +65,7 @@ namespace TestsProject
         {
             ProblemsRepository.DeleteFile();
             string input = "99.99.2025 15:14:49.523 INFORMATION Сообщение";
-            var result = Parser.ParseLog(input, out string errorMessage);
+            var result = Parser.TryParseLog(input, out string errorMessage);
             Assert.Null(result);
             var problems = ProblemsRepository.GetAll();
             Assert.Single(problems);

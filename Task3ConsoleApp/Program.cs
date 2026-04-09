@@ -6,8 +6,8 @@ public class Program
 {
     static void Main(string[] args)
     {
-        var s = "10.03.2025 15:14:49.523 INFORMATION Версия программы: '3.4.0.48729'";
-        var log = Parser.ParseLog(s, out string errorMessage);
+        var s = "2025-03-10 15:14:51.5882| INFO|11|MobileComputer.GetDeviceId| Код устройства: '@MINDEO-M40-D-410244015546'";
+        var log = Parser.TryParseLog(s, out string errorMessage);
         if (log == null)
         {
             Console.WriteLine(errorMessage);
