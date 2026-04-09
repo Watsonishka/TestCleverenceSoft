@@ -23,11 +23,11 @@ namespace Task3ConsoleApp
                 }
                 if (IsContainsOnlyLatinLetters(parts[i]))
                 {
-                    callingMethod = $"{parts[i].Trim()} ";
+                    callingMethod = parts[i].Trim();
                 }
                 else
                 {
-                    message += parts[i];
+                    message += $"{parts[i].Trim()} ";
                 }
             }
             return new Log(date, time, level, message.Trim(), callingMethod);
