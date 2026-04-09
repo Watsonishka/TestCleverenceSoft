@@ -57,5 +57,15 @@ namespace Task3ConsoleApp
             this.message = message;
             this.callingMethod = callingMethod;
         }
+        public static string ReadToTabSeparatedString(Log log)
+        {
+            var date = log.Date.ToString("dd-MM-yyyy");
+            var time = log.Time.ToString("HH:mm:ss.fffffff").TrimEnd('0');
+            var level = log.Level;
+            var method = log.CallingMethod;
+            var message = log.Message;
+
+            return $"{date}\t{time}\t{level}\t{method}\t{message}";
+        }
     }
 }
