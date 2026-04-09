@@ -5,8 +5,9 @@ namespace Task3ConsoleApp
 {
     public static class Parser
     {
-        public static Log ParseLog(string inputFile)
+        public static Log ParseLog(string inputFile, out string errorMessage)
         {
+            errorMessage = "";
             try
             {
                 var parts = Divide(inputFile);
@@ -36,8 +37,10 @@ namespace Task3ConsoleApp
             }
             catch
             {
-
+                ProblemsRepository.AddToFile(inputFile);
+                errorMessage = "Лог не смог запарситься! Требуется ручная обработка! Проблемный лог записан в \"problems.txt\"!";
             }
+            return null;
         }
         private static string[] Divide(string inputFile)
         {

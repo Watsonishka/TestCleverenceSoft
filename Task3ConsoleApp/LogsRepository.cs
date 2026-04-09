@@ -5,7 +5,7 @@ namespace Task3ConsoleApp
     public class LogsRepository
     {
         private static readonly List<Log> logs = new List<Log>();
-        private const string logsFilePath = "LogsList.json";        
+        private const string logsFilePath = "LogsList.json";
         static LogsRepository()
         {
             if (!File.Exists(logsFilePath))
@@ -27,6 +27,5 @@ namespace Task3ConsoleApp
             var jsonData = JsonConvert.SerializeObject(logs);
             FileManager.RewriteJSONFile(logsFilePath, jsonData);
         }
-
     }
 }
