@@ -7,9 +7,7 @@ namespace Task3ConsoleApp
         public enum LogLevel
         {
             UNKNOWN,
-            INFORMATION,
             INFO,
-            WARNING,
             WARN,
             ERROR,
             DEBUG
@@ -20,9 +18,9 @@ namespace Task3ConsoleApp
             switch (logLevel.Trim().ToUpper())
             {
                 case "INFO": return LogLevel.INFO;
-                case "INFORMATION": return LogLevel.INFORMATION;
+                case "INFORMATION": return LogLevel.INFO;
                 case "WARN": return LogLevel.WARN;
-                case "WARNING": return LogLevel.WARNING;
+                case "WARNING": return LogLevel.WARN;
                 case "ERROR": return LogLevel.ERROR;
                 case "DEBUG": return LogLevel.DEBUG;
                 default: return LogLevel.UNKNOWN;

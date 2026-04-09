@@ -7,30 +7,37 @@ namespace Task3ConsoleApp
     {
         public static Log ParseLog(string inputFile)
         {
-            var parts = Divide(inputFile);
-
-            var date = ParseDate(parts[0].Trim());
-            var time = TimeOnly.Parse(parts[1].Trim());
-            var level = Level.GetLog(parts[2].Trim());
-            var callingMethod = "DEFAULT";
-            var message = "";
-
-            for (var i = 3; i < parts.Length; i++)
+            try
             {
-                if (isContainsOnlyNumbers(parts[i]))
+                var parts = Divide(inputFile);
+
+                var date = ParseDate(parts[0].Trim());
+                var time = TimeOnly.Parse(parts[1].Trim());
+                var level = Level.GetLog(parts[2].Trim());
+                var callingMethod = "DEFAULT";
+                var message = "";
+
+                for (var i = 3; i < parts.Length; i++)
                 {
-                    continue;
+                    if (isContainsOnlyNumbers(parts[i]))
+                    {
+                        continue;
+                    }
+                    if (IsContainsOnlyLatinLetters(parts[i]))
+                    {
+                        callingMethod = parts[i].Trim();
+                    }
+                    else
+                    {
+                        message += $"{parts[i].Trim()} ";
+                    }
                 }
-                if (IsContainsOnlyLatinLetters(parts[i]))
-                {
-                    callingMethod = parts[i].Trim();
-                }
-                else
-                {
-                    message += $"{parts[i].Trim()} ";
-                }
+                return new Log(date, time, level, message.Trim(), callingMethod);
             }
-            return new Log(date, time, level, message.Trim(), callingMethod);
+            catch
+            {
+
+            }
         }
         private static string[] Divide(string inputFile)
         {
