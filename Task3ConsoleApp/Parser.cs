@@ -19,7 +19,7 @@ namespace Task3ConsoleApp
                     return ParseFormat1(inputFile);
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 ProblemsRepository.AddToFile(inputFile);
                 errorMessage = "Лог не смог запарситься! Требуется ручная обработка! Проблемный лог записан в \"problems.txt\"!";
@@ -60,30 +60,6 @@ namespace Task3ConsoleApp
                 inputDate = $"{parts[2]}-{parts[1]}-{parts[0]}";
             }
             return DateOnly.ParseExact(inputDate, "dd-MM-yyyy", CultureInfo.InvariantCulture);
-        }
-        private static bool IsContainsOnlyNumbers(string inputString)
-        {
-            for (var i = 0; inputString.Length > i; i++)
-            {
-                if (!char.IsDigit(inputString[i]))
-                {
-                    return false;
-                }
-            }
-            return true;
-        }
-        private static bool IsContainsRussianLetters(string inputString)
-        {
-            for (var i = 0; i < inputString.Length; i++)
-            {
-                var c = inputString[i];
-                if ((c >= 'а' && c <= 'я') || c == 'ё' ||
-                    (c >= 'А' && c <= 'Я') || c == 'Ё')
-                {
-                    return true;
-                }
-            }
-            return false;
         }
     }
 }
