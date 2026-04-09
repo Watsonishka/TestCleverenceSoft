@@ -41,6 +41,18 @@
                 _lock.ExitWriteLock();
             }
         }
+        public static void Reset()
+        {
+            _lock.EnterWriteLock();
+            try
+            {
+                count = 0;
+            }
+            finally
+            {
+                _lock.ExitWriteLock();
+            }
+        }
     }
 }
 
