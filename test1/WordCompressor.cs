@@ -22,7 +22,6 @@ namespace Test1ConsoleApp
                 else
                 {
                     compressedWord.Append(userInput[i - 1]);
-
                     if (repeatSymbolCount > 1)
                     {
                         compressedWord.Append(repeatSymbolCount);
@@ -58,7 +57,6 @@ namespace Test1ConsoleApp
                 }
                 decompressedWord.Append(new string(symbol, repeatSymbolCount));
             }
-
             return decompressedWord.ToString();
         }
     }
