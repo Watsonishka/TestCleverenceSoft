@@ -5,7 +5,7 @@ namespace Task3ConsoleApp
 {
     public static class Parser
     {
-        public static Log ParseLog(string inputFile, out string errorMessage)
+        public static Log? ParseLog(string inputFile, out string errorMessage)
         {
             errorMessage = "";
             try

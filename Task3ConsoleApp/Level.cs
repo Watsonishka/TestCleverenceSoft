@@ -1,6 +1,4 @@
-﻿using Microsoft.VisualBasic;
-
-namespace Task3ConsoleApp
+﻿namespace Task3ConsoleApp
 {
     public class Level
     {
