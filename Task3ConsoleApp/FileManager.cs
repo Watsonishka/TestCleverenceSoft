@@ -18,4 +18,10 @@ public class FileManager
         streamWriter.WriteLine(text);
         streamWriter.Close();
     }
+    public static void RewriteTextFile(string filePath, string text)
+    {
+        var streamWriter = new StreamWriter(filePath, false, System.Text.Encoding.UTF8);
+        streamWriter.Write(text);
+        streamWriter.Close();
+    }
 }

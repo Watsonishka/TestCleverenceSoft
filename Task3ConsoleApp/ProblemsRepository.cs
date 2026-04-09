@@ -24,7 +24,14 @@
         {
             FileManager.AppendToTextFile(problemsFilePath, problem);
         }
-
+        public static void DeleteFile()
+        {
+            if (File.Exists(problemsFilePath))
+            {
+                File.Delete(problemsFilePath);
+            }
+            File.Create(problemsFilePath).Close();
+        }
     }
 }
 
