@@ -19,7 +19,7 @@ namespace Task3ConsoleApp
                     return ParseFormat1(inputFile);
                 }
             }
-            catch
+            catch (Exception ex)
             {
                 ProblemsRepository.AddToFile(inputFile);
                 errorMessage = "Лог не смог запарситься! Требуется ручная обработка! Проблемный лог записан в \"problems.txt\"!";
