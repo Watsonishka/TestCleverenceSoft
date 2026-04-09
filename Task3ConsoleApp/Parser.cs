@@ -19,17 +19,18 @@ namespace Task3ConsoleApp
 
                 for (var i = 3; i < parts.Length; i++)
                 {
-                    if (isContainsOnlyNumbers(parts[i]))
+                    if (IsContainsOnlyNumbers(parts[i]))
                     {
                         continue;
                     }
-                    if (IsContainsOnlyLatinLettersAndDots(parts[i]))
+
+                    if (IsContainsRussianLetters(parts[i]))
                     {
-                        callingMethod = parts[i].Trim();
+                        message = parts[i].Trim();
                     }
                     else
                     {
-                        message += $"{parts[i].Trim()} ";
+                        callingMethod = parts[i].Trim();
                     }
                 }
                 return new Log(date, time, level, message.Trim(), callingMethod);
@@ -45,7 +46,17 @@ namespace Task3ConsoleApp
         {
             if (inputFile.Contains("|"))
             {
-                return inputFile.Split(new char[] { '|', ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                var pipeParts = inputFile.Split('|', StringSplitOptions.RemoveEmptyEntries);
+                var dateTimeParts = pipeParts[0].Trim().Split(' ');
+                return new string[]
+                {
+                    dateTimeParts[0].Trim(),
+                    dateTimeParts[1].Trim(),
+                    pipeParts[1].Trim(),
+                    pipeParts[2].Trim(),
+                    pipeParts[3].Trim(),
+                    pipeParts[4].Trim()
+                };
             }
             var parts = inputFile.Split(' ', 4);
             return parts;
@@ -63,7 +74,7 @@ namespace Task3ConsoleApp
             }
             return DateOnly.ParseExact(inputDate, "dd-MM-yyyy", CultureInfo.InvariantCulture);
         }
-        private static bool isContainsOnlyNumbers(string inputString)
+        private static bool IsContainsOnlyNumbers(string inputString)
         {
             for (var i = 0; inputString.Length > i; i++)
             {
@@ -74,17 +85,18 @@ namespace Task3ConsoleApp
             }
             return true;
         }
-        private static bool IsContainsOnlyLatinLettersAndDots(string inputString)
+        private static bool IsContainsRussianLetters(string inputString)
         {
             for (var i = 0; i < inputString.Length; i++)
             {
                 var c = inputString[i];
-                if (!((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || c == '.'))
+                if ((c >= 'а' && c <= 'я') || c == 'ё' ||
+                    (c >= 'А' && c <= 'Я') || c == 'Ё')
                 {
-                    return false;
+                    return true;
                 }
             }
-            return true;
+            return false;
         }
     }
 }

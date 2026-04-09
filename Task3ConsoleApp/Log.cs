@@ -57,7 +57,7 @@ namespace Task3ConsoleApp
                           c == '.' ||
                           (c >= '0' && c <= '9')))
                     {
-                        throw new ArgumentException($"CallingMethod содержит недопустимые символы!. Разрешены только латинские буквы, цифры и точки!");
+                        throw new ArgumentException($"CallingMethod содержит недопустимые символы! Разрешены только латинские буквы, цифры и точки!");
                     }
                 }
                 callingMethod = value;
