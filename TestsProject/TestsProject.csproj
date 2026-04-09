@@ -16,6 +16,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Task2ConsoleApp\Task2ConsoleApp.csproj" />
+    <ProjectReference Include="..\Task3ConsoleApp\Task3ConsoleApp.csproj" />
     <ProjectReference Include="..\test1\Task1ConsoleApp.csproj" />
   </ItemGroup>
 
