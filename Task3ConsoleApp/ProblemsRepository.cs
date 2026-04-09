@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Task3ConsoleApp
+﻿namespace Task3ConsoleApp
 {
     public static class ProblemsRepository
     {
@@ -11,12 +7,7 @@ namespace Task3ConsoleApp
         {
             if (!File.Exists(problemsFilePath))
             {
-                var problems = "";
-                FileManager.AppendToTextFile(problemsFilePath, problems);
-            }
-            else
-            {
-                var problems = GetAll();
+                File.Create(problemsFilePath).Close();
             }
         }
         public static List<string> GetAll()
@@ -31,9 +22,9 @@ namespace Task3ConsoleApp
         }
         public static void AddToFile(string problem)
         {
-            var result = $"{problem}#";
-            FileManager.AppendToTextFile(problemsFilePath, result);
+            FileManager.AppendToTextFile(problemsFilePath, problem);
         }
+
     }
 }
 

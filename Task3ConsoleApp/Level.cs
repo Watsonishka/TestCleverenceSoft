@@ -10,7 +10,6 @@
             ERROR,
             DEBUG
         }
-
         public static LogLevel GetLog(string logLevel)
         {
             switch (logLevel.Trim().ToUpper())

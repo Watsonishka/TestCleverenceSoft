@@ -7,18 +7,22 @@ public class Program
     static void Main(string[] args)
     {
         //var s = "10.03.2025 15:14:49.523 INFORMATION Версия программы: '3.4.0.48729'";
-        var s = "2025-03-10 15:14:51.5882| INFO|11|MobileComputer.GetDeviceId| Код устройства: '@MINDEO-M40-D-410244015546'";
-        //var s = "99.99.2025 15:14:49.523 INFORMATION Версия программы";
+        //var s = "2025-03-10 15:14:51.5882| INFO|11|MobileComputer.GetDeviceId| Код устройства: '@MINDEO-M40-D-410244015546'";
+        var s = "99.99.2025 15:14:49.523 INFORMATION Версия программы";
         var log = Parser.ParseLog(s, out string errorMessage);
         if (log == null)
         {
             Console.WriteLine(errorMessage);
+            var count = 1;
+            var problems = ProblemsRepository.GetAll();
+            foreach (var problem in problems)
+            {
+                Console.WriteLine($"{count}: {problem}");
+                count++;
+            }
         }
         else
         {
-            var logList = LogsRepository.GetAll();
-            logList.Add(log);
-            LogsRepository.RewriteFile(logList);
             Console.WriteLine(log.ReadToTabSeparatedString());
         }
     }

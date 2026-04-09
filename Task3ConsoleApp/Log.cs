@@ -64,7 +64,6 @@ namespace Task3ConsoleApp
             var level = Level;
             var method = CallingMethod;
             var message = Message;
-
             return $"{date}\t{time}\t{level}\t{method}\t{message}";
         }
     }

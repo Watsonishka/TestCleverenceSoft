@@ -1,5 +1,4 @@
 ﻿using System.Globalization;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Task3ConsoleApp
 {
@@ -24,7 +23,7 @@ namespace Task3ConsoleApp
                     {
                         continue;
                     }
-                    if (IsContainsOnlyLatinLetters(parts[i]))
+                    if (IsContainsOnlyLatinLettersAndDots(parts[i]))
                     {
                         callingMethod = parts[i].Trim();
                     }
@@ -52,14 +51,16 @@ namespace Task3ConsoleApp
             return parts;
         }
         private static DateOnly ParseDate(string inputDate)
-        { 
+        {
             if (inputDate.Contains("."))
             {
                 inputDate = inputDate.Replace('.', '-');
-                return DateOnly.ParseExact(inputDate, "dd-MM-yyyy", CultureInfo.InvariantCulture);
             }
-            var parts = inputDate.Split('-');
-            inputDate = $"{parts[2]}-{parts[1]}-{parts[0]}";
+            else
+            {
+                var parts = inputDate.Split('-');
+                inputDate = $"{parts[2]}-{parts[1]}-{parts[0]}";
+            }
             return DateOnly.ParseExact(inputDate, "dd-MM-yyyy", CultureInfo.InvariantCulture);
         }
         private static bool isContainsOnlyNumbers(string inputString)
@@ -73,7 +74,7 @@ namespace Task3ConsoleApp
             }
             return true;
         }
-        private static bool IsContainsOnlyLatinLetters(string inputString)
+        private static bool IsContainsOnlyLatinLettersAndDots(string inputString)
         {
             for (var i = 0; i < inputString.Length; i++)
             {
