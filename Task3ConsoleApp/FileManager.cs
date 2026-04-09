@@ -1,4 +1,5 @@
 ﻿namespace Task3ConsoleApp;
+
 public class FileManager
 {
     public static List<string> ReadTextFile(string filePath)

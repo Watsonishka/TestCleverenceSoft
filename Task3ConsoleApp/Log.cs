@@ -9,8 +9,8 @@ namespace Task3ConsoleApp
         private LogLevel level;
         private string message;
         private string callingMethod;
-        public DateOnly Date 
-        { 
+        public DateOnly Date
+        {
             get => date;
             set
             {
@@ -57,7 +57,7 @@ namespace Task3ConsoleApp
                           c == '.' ||
                           (c >= '0' && c <= '9')))
                     {
-                        throw new ArgumentException($"CallingMethod содержит недопустимые символы! Разрешены только латинские буквы, цифры и точки!");
+                        throw new ArgumentException($"CallingMethod содержит недопустимые символы, была использована кириллица!");
                     }
                 }
                 callingMethod = value;
