@@ -46,6 +46,20 @@ namespace Task3ConsoleApp
             get => callingMethod;
             set
             {
+                if (string.IsNullOrWhiteSpace(value))
+                {
+                    throw new ArgumentException("CallingMethod не может быть пустым или null!");
+                }
+                foreach (char c in value)
+                {
+                    if (!((c >= 'a' && c <= 'z') ||
+                          (c >= 'A' && c <= 'Z') ||
+                          c == '.' ||
+                          (c >= '0' && c <= '9')))
+                    {
+                        throw new ArgumentException($"CallingMethod содержит недопустимые символы!. Разрешены только латинские буквы, цифры и точки!");
+                    }
+                }
                 callingMethod = value;
             }
         }
